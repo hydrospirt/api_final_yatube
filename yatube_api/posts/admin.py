@@ -7,7 +7,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('pk',
                     'text',
                     'pub_date',
-                    'author',)
+                    'author',
+                    'group')
     search_fields = ('text',)
     list_editable = ('group',)
     list_filter = ('pub_date',)
