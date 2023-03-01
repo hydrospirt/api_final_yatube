@@ -20,6 +20,15 @@ class Post(models.Model):
         verbose_name='Автор',
         help_text='Укажите автора публикации',
     )
+    group = models.ForeignKey(
+        'Group',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='posts',
+        verbose_name='Группа',
+        help_text='Название группы, к которой относится публикация'
+    )
     image = models.ImageField(
         upload_to='posts/',
         null=True,
@@ -93,3 +102,28 @@ class Follow(models.Model):
 
     def __str__(self) -> str:
         return f'{self.user} подписан(-а) на {self.author}'
+
+
+class Group(models.Model):
+    title = models.CharField(
+        max_length=200,
+        db_index=True,
+        verbose_name='Название',
+        help_text='Название группы, к которой относится публикация'
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='Слаг',
+        help_text='Уникальный фрагмент URL-адреса'
+    )
+    description = models.TextField(
+        verbose_name='Описание',
+        help_text='Укажите подробное описание группы'
+    )
+
+    class Meta:
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
+    def __str__(self) -> str:
+        return self.title
