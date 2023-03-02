@@ -4,7 +4,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from posts.models import User, Post, Comment, Follow, Group
 
-from api.serializers import PostSerializer, CommentSerializer, GroupSerializer, FollowSerializer
+from api.serializers import (PostSerializer,
+                             CommentSerializer,
+                             GroupSerializer,
+                             FollowSerializer
+                             )
 from api.permissions import AuthorOrReadOnly
 
 
@@ -59,6 +63,3 @@ class FollowViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
         return user.follower.all()
-
-
-
